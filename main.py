@@ -1,15 +1,18 @@
 class MoviesLibrary:
     def __init__(self, genres):
-        movies_list = []
-        self.data = {}
-        for genre in genres:
-            self.data[genre] = movies_list
+        self.data = {genre: [] for genre in genres}
 
     def add_movie(self, genre, title):
-        self.data[genre].append(title)
+        if genre in self.data:
+            self.data[genre].append(title)
+        else:
+            raise KeyError(f"Жанр '{genre}' не найден.")
 
     def recommend(self, genre):
-        return self.data[genre]
+        if genre in self.data:
+            return self.data[genre]
+        else:
+            raise KeyError(f"Жанр '{genre}' не найден.")
 
 
 if __name__ == '__main__':
@@ -19,3 +22,4 @@ if __name__ == '__main__':
     library.add_movie('Комедия', 'Три разраба и тестировщик')
 
     print(library.recommend('Комедия'))
+
